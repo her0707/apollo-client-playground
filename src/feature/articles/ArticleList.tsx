@@ -25,6 +25,23 @@ const articlesQueryDocument = graphql(/* GraphQL */ `
       articlesCount
     }
   }
+  fragment Article on Article {
+    slug
+    title
+    description
+    body
+    tagList
+    createdAt
+    updatedAt
+    favorited
+    favoritesCount
+    author {
+      username
+      bio
+      image
+      following
+    }
+  }
 `);
 
 export default function ArticleList() {

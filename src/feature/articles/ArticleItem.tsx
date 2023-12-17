@@ -14,28 +14,8 @@ interface Props {
   article: FragmentType<typeof ArticleFragmentDoc> | null;
 }
 
-const articleFragment = graphql(/* GraphQL */ `
-  fragment Article on Article {
-    slug
-    title
-    description
-    body
-    tagList
-    createdAt
-    updatedAt
-    favorited
-    favoritesCount
-    author {
-      username
-      bio
-      image
-      following
-    }
-  }
-`);
-
 export default function ArticleItem({ article }: Props) {
-  const data = useFragment(articleFragment, article);
+  const data = useFragment(ArticleFragmentDoc, article);
 
   return (
     <div className={container}>

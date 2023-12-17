@@ -3,6 +3,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   createHttpLink,
+  defaultDataIdFromObject,
   from,
 } from "@apollo/client";
 import { SchemaLink } from "@apollo/client/link/schema";
@@ -33,7 +34,16 @@ const errorLink = onError(
 export function createClient() {
   return new ApolloClient({
     link: from([errorLink, new SchemaLink({ schema })]),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      dataIdFromObject(responseObject) {
+        switch (responseObject.__typename) {
+          case "Article":
+            return `Article:${responseObject.slug}`;
+          default:
+            return defaultDataIdFromObject(responseObject);
+        }
+      },
+    }),
     ssrMode: typeof window === "undefined",
     defaultOptions: {
       watchQuery: {
