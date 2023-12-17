@@ -2,7 +2,6 @@ import {
   ApolloClient,
   InMemoryCache,
   NormalizedCacheObject,
-  createHttpLink,
   defaultDataIdFromObject,
   from,
 } from "@apollo/client";
@@ -12,10 +11,6 @@ import { onError } from "@apollo/client/link/error";
 import { schema } from "@/graphql/execute-schema";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
-
-const httpLink = createHttpLink({
-  uri: `${process.env.NEXT_PUBLIC_BASE_URL}/graphql`,
-});
 
 const errorLink = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
@@ -35,6 +30,11 @@ export function createClient() {
   return new ApolloClient({
     link: from([errorLink, new SchemaLink({ schema })]),
     cache: new InMemoryCache({
+      typePolicies: {
+        Author: {
+          keyFields: ["username"],
+        },
+      },
       dataIdFromObject(responseObject) {
         switch (responseObject.__typename) {
           case "Article":
