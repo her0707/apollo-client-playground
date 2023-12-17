@@ -14,6 +14,14 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.realworld.io",
+      },
+    ],
+  },
 };
 
 module.exports = withVanillaExtract(nextConfig);

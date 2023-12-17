@@ -57,7 +57,7 @@ export const authorImg = style({
   borderRadius: "99999%",
 });
 
-export const author = style({
+export const authorName = style({
   fontSize: "1rem",
   cursor: "pointer",
   ":hover": {
