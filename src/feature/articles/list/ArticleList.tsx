@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from "@apollo/client";
 
 import { graphql } from "@/gql";
-import ArticleComponent from "@/feature/articles/ArticleItem";
-import { containerList } from "@/feature/articles/Article.css";
+import ArticleComponent from "@/feature/articles/list/ArticleItem";
+import { containerList } from "@/feature/articles/list/Article.css";
 
 const articlesQueryDocument = graphql(/* GraphQL */ `
   query articles(

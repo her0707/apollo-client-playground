@@ -7,5 +7,13 @@ export const articleResolvers: Resolvers = {
 
       return await response.json();
     },
+
+    async Article(obj, args) {
+      const response = await fetch(
+        `https://api.realworld.io/api/articles/${args.slug}`
+      );
+
+      return await response.json();
+    },
   },
 };

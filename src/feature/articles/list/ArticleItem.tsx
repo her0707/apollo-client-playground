@@ -1,4 +1,7 @@
-import { FragmentType, graphql, useFragment } from "@/gql";
+import { gql } from "@apollo/client";
+import Link from "next/link";
+
+import { FragmentType, useFragment } from "@/gql";
 import {
   container,
   contentContainer,
@@ -10,9 +13,8 @@ import {
   articleTagContainer,
 } from "./Article.css";
 import { ArticleFragmentDoc } from "@/gql/graphql";
-import TagList from "./components/TagList";
-import ArticleAuthor from "./components/ArticleAuthor";
-import { gql } from "@apollo/client";
+import TagList from "../components/TagList";
+import ArticleAuthor from "../components/ArticleAuthor";
 
 interface Props {
   article: FragmentType<typeof ArticleFragmentDoc> | null;
@@ -50,10 +52,10 @@ export default function ArticleItem({ article }: Props) {
         </button>
       </div>
 
-      <a className={contentContainer}>
+      <Link href={`/${data?.slug}`} className={contentContainer}>
         <h5 className={articleTitle}>{data?.title}</h5>
         <p className={articleContent}>{data?.description}</p>
-      </a>
+      </Link>
 
       <div className={articleTagContainer}>
         <TagList tagList={data?.tagList} />

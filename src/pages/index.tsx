@@ -1,8 +1,12 @@
 import Head from "next/head";
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import style from "@/styles/Home.module.css";
-import ArticleList from "@/feature/articles/ArticleList";
+const ArticleList = dynamic(
+  () => import("@/feature/articles/list/ArticleList"),
+  { loading: () => <div className={style.main}>Loading...</div> }
+);
 
 export default function Home() {
   return (

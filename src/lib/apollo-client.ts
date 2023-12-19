@@ -5,6 +5,8 @@ import {
   defaultDataIdFromObject,
   from,
 } from "@apollo/client";
+import merge from "deepmerge";
+
 import { SchemaLink } from "@apollo/client/link/schema";
 
 import { onError } from "@apollo/client/link/error";
@@ -33,6 +35,15 @@ export function createClient() {
       typePolicies: {
         Author: {
           keyFields: ["username"],
+        },
+        Article: {
+          fields: {
+            isActive: {
+              read(_, { variables }) {
+                return variables ? !!Math.round(Math.random()) : false;
+              },
+            },
+          },
         },
       },
       dataIdFromObject(responseObject) {
@@ -64,9 +75,9 @@ export function initializeApollo(
   if (initialState) {
     const existingCache = _apolloClient.extract();
 
-    // const data = merge(initialState, existingCache)
+    const data = merge(initialState, existingCache);
 
-    // _apolloClient.cache.restore(data)
+    _apolloClient.cache.restore(data);
   }
 
   if (typeof window === "undefined") return _apolloClient;

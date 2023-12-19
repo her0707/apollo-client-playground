@@ -1,5 +1,5 @@
 type Article {
-  slug: String
+  slug: String!
   title: String!
   description: String!
   body: String!
@@ -9,6 +9,7 @@ type Article {
   favorited: Boolean
   favoritesCount: Int
   author: Author
+  isActive: Boolean
 }
 
 type Author {
@@ -23,6 +24,10 @@ type ArticlesResponse {
   articlesCount: Int!
 }
 
+type ArticleResponse {
+  article: Article!
+}
+
 type Query {
   Articles(
     tag: String
@@ -31,4 +36,5 @@ type Query {
     offset: Int
     limit: Int
   ): ArticlesResponse
+  Article(slug: String!): ArticleResponse
 }

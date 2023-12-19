@@ -7,7 +7,7 @@ import {
   titleContainer,
   authorName,
   articleDate,
-} from "../Article.css";
+} from "../list/Article.css";
 import { formatDate } from "@/utils/date-format";
 import { AuthorFragmentDoc } from "@/gql/graphql";
 import { FragmentType, useFragment } from "@/gql";
